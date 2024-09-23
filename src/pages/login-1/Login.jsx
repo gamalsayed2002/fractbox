@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./login.module.css";
-import logo from "./imgs/logo.JPG";
+import logo from "./imgs/logo4.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 export default function Login() {
@@ -79,7 +79,7 @@ export default function Login() {
                 transition={{ duration: 0.5, delay: 1 }}
                 htmlFor="password"
               >
-                Email
+                Password
               </motion.label>
               <motion.input
                 style={{ position: "relative" }}

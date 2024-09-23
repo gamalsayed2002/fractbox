@@ -1,0 +1,42 @@
+.section {
+  height: 100vh;
+}
+
+.section .container {
+  width: 100%;
+  padding: 20px 10px;
+  overflow: scroll;
+  flex-wrap: wrap;
+  gap: 30px 30px !important;
+}
+.section .container::-webkit-scrollbar {
+  width: 0;
+}
+.section .container .box {
+  width: 400px;
+  max-width: 95%;
+  height: 120px;
+  background: var(--btn-bg);
+  border-radius: 10px;
+  padding: 20px;
+  line-height: 1.4;
+}
+.section .container .box h4 {
+  color: var(--text-color);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.section .container .box h3 {
+  color: var(--text-color);
+}
+.section .container .box .link_container {
+}
+.section .container .box .more {
+  width: fit-content;
+  margin-left: auto;
+  font-weight: 600;
+  border-radius: 100px;
+  border: 3px solid var(--text-color);
+  color: var(--text-color);
+  padding: 3px 10px;
+}

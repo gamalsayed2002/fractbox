@@ -1,7 +1,7 @@
 :root {
-  --main-bg: #f9ecec;
+  --main-bg: #808080;
   --text-color: #3a1212;
-  --btn-bg: #ac3a3a;
+  --btn-bg: #c78544;
   --link: #67d9fe;
 }
 
@@ -9,7 +9,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: 0.5s;
 }
+
 body {
   background: var(--main-bg);
   font-family: Arial, Helvetica, sans-serif;
@@ -45,3 +47,26 @@ button {
   justify-content: space-between;
   align-items: center;
 }
+
+.menu_icon {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--link);
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+.show {
+  right: 0 !important;
+}
+
+/* media for nav */
