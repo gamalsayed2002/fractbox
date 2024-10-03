@@ -58,6 +58,8 @@ button {
   height: 50px;
   padding: 10px;
   border-radius: 100%;
+  z-index: 10;
+  display: none;
 }
 
 .section {
@@ -67,6 +69,12 @@ button {
 }
 .show {
   right: 0 !important;
+  z-index: 100;
 }
 
 /* media for nav */
+@media(max-width:700px){
+  .menu_icon{
+    display: block;
+  }
+}

@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { NavContext } from "../../context/NavContext";
 
 export default function Home() {
-  const { toggleNav, isNavOpen } = useContext(NavContext);
+  const { toggleNav } = useContext(NavContext);
   return (
     <>
       <section className={`${styles.section} section`}>

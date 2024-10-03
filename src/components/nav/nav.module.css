@@ -5,6 +5,7 @@
   background: #333;
   border-bottom-left-radius: 15px;
   position: relative;
+  z-index: 11;
 }
 .header nav {
   height: 100%;

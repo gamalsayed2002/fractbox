@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavContext } from "../../context/NavContext";
 import styles from "./nav.module.css";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 export default function Nav() {
   const { toggleNav, isNavOpen } = useContext(NavContext);
 
@@ -11,32 +12,29 @@ export default function Nav() {
         <AiOutlineClose />
       </div>
       <nav>
-        {/* <div className={`${styles.logo}`}>
-          <img src={logo} alt="logo not found" />
-        </div> */}
         <ul className={`coulmn`}>
-          <navLink to={`/home`} className={`${styles.link} center`}>
+          <Link to="/notifications" className={`${styles.link} center`}>
             Notifications
-          </navLink>
-          <navLink to={`/home`} className={`${styles.link} center`}>
-            Employees{" "}
-          </navLink>
+          </Link>
+          <Link to={`/home`} className={`${styles.link} center`}>
+            Employees
+          </Link>
 
-          <navLink to={`/home`} className={`${styles.link} center`}>
-            Orders{" "}
-          </navLink>
+          <Link to={`/home`} className={`${styles.link} center`}>
+            Orders
+          </Link>
 
-          <navLink to={`/home`} className={`${styles.link} center`}>
-            Tracking{" "}
-          </navLink>
+          <Link to={`/home`} className={`${styles.link} center`}>
+            Tracking
+          </Link>
 
-          <navLink to={`/home`} className={`${styles.link} center`}>
-            Finance{" "}
-          </navLink>
+          <Link to={`/home`} className={`${styles.link} center`}>
+            Finance
+          </Link>
 
-          <navLink to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/home`} className={`${styles.link} center`}>
             Postal codes
-          </navLink>
+          </Link>
         </ul>
       </nav>
     </header>
