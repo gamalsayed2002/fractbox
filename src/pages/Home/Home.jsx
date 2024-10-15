@@ -16,25 +16,25 @@ export default function Home() {
 
         <div className={`${styles.container} center`}>
           <div className={`${styles.container} center`}>
-            <Link className={`${styles.box}`}>
+            <Link to={`/employees`} className={`${styles.box}`}>
               <h4>Employees</h4>
               <h3>5,568</h3>
               <div className={`${styles.more}`}>more</div>
             </Link>
 
-            <Link className={`${styles.box}`}>
-              <h4>Employees</h4>
-              <h3>5,568</h3>
+            <Link to={`/notifications`} className={`${styles.box}`}>
+              <h4>Notifications</h4>
+              <h3>11,033</h3>
               <div className={`${styles.more}`}>more</div>
             </Link>
 
-            <Link className={`${styles.box}`}>
+            <Link to={`/all_orders`} className={`${styles.box}`}>
               <h4>Orders</h4>
               <h3>11,033</h3>
               <div className={`${styles.more}`}>more</div>
             </Link>
 
-            <Link className={`${styles.box}`}>
+            <Link  className={`${styles.box}`}>
               <h4>Tracking</h4>
               <h3>553</h3>
               <div className={`${styles.more}`}>more</div>

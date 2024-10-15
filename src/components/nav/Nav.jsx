@@ -16,11 +16,11 @@ export default function Nav() {
           <Link to="/notifications" className={`${styles.link} center`}>
             Notifications
           </Link>
-          <Link to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/employees`} className={`${styles.link} center`}>
             Employees
           </Link>
 
-          <Link to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/all_orders`} className={`${styles.link} center`}>
             Orders
           </Link>
 

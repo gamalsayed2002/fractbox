@@ -6,13 +6,16 @@
 }
 .section .container {
   max-width: 95%;
+  max-height: 100%;
 }
 .section .container form {
   width: 100%;
-  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .section .container form .container {
-  padding: 0;
   width: 100%;
   flex-wrap: wrap;
   gap: 20px 30px;
@@ -95,17 +98,19 @@
   width: 15px;
   cursor: pointer;
 }
-/* start media */
-@media (max-width: 605px) {
-  .section .container {
-    justify-content: center;
-    align-items: center;
-    padding-top: 200px;
-  }
-  .section .container form .container .input_container {
-    width: 350px !important;
-  }
+section .container form button {
+  background: var(--btn-bg);
+  outline: none;
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 20px;
+  max-width: 100%;
 }
+/* start media */
+
 @media (max-width: 830px) {
   .section .container form .container .input_container {
     width: 300px;
@@ -114,5 +119,24 @@
 @media (max-width: 717px) {
   .section .container form .container .input_container {
     width: 250px;
+  }
+}
+@media (max-width: 605px) {
+  .section .container {
+    justify-content: center;
+    align-items: center;
+    /* padding-top: 200px; */
+  }
+
+  .section .container form .container .input_container {
+    width: 350px !important;
+  }
+}
+@media (max-width: 320px) {
+  .section .container form .container .input_container.file label h3 {
+    font-size: 16px;
+  }
+  .section .container form .container .input_container.file label .icon {
+    font-size: 40px;
   }
 }

@@ -1,8 +1,12 @@
 import { useState } from "react";
-import styles from "./Job.module.css";
-import { RiFileUploadFill } from "react-icons/ri";
-
-export default function Job() {
+import styles from "./inf.module.css";
+import { GrMenu } from "react-icons/gr";
+import { useContext } from "react";
+import { NavContext } from "../../../context/NavContext";
+import Nav from "../../../components/nav/Nav";
+export default function Inf() {
+  const { toggleNav } = useContext(NavContext);
+  // ////////////////////////////////////////////////
   let [name, setName] = useState("");
   let [phone, setPhone] = useState("");
   let [email, setEmail] = useState("");
@@ -14,7 +18,6 @@ export default function Job() {
   let [card, setCard] = useState(null);
   let [mva, setMva] = useState("");
   let [sex, setSex] = useState("");
-
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -25,13 +28,13 @@ export default function Job() {
       reader.readAsDataURL(file);
     }
   };
-
   return (
     <>
-      <section className={`${styles.section}`}>
-        <div className={`${styles.container} center`}>
+      <section className={`${styles.section} section`}>
+        <GrMenu className="menu_icon center" onClick={toggleNav} />
+        <Nav />
+        <div className={`${styles.content_container} center `}>
           <form className={`center`}>
-            <h2 className={`${styles.title}`}>Apply for a job</h2>
             <div className={`${styles.container} center`}>
               <div className={`${styles.input_container}`}>
                 <label htmlFor="name">Name</label>
@@ -87,7 +90,8 @@ export default function Job() {
               >
                 <label htmlFor="card" className={`center`}>
                   <h3>identification card</h3>
-                  {card ? (
+                  <img src={card} alt="img not found" />
+                  {/* {card ? (
                     <img
                       src={card}
                       alt="Uploaded"
@@ -95,10 +99,9 @@ export default function Job() {
                     />
                   ) : (
                     <RiFileUploadFill className={`${styles.icon}`} />
-                  )}
+                  )} */}
                 </label>
                 <input type="file" id="card" onChange={handleImageUpload} />
-               
               </div>
 
               <div
@@ -106,7 +109,8 @@ export default function Job() {
               >
                 <label htmlFor="mva" className={`center`}>
                   <h3>MVA</h3>
-                  <RiFileUploadFill className={`${styles.icon}`} />
+                  {/* <RiFileUploadFill className={`${styles.icon}`} /> */}
+                  <img src="" alt="img not found" />
                 </label>
                 <input type="file" id="mva" />
               </div>
@@ -144,7 +148,11 @@ export default function Job() {
               </div>
             </div>
 
-            <button className="center">save</button>
+            <div className={`${styles.buttons} center`}>
+              <button className="center">edit</button>
+              <button className="center">fire</button>
+              <button className="center">contact</button>
+            </div>
           </form>
         </div>
       </section>

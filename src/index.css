@@ -2,6 +2,7 @@
   --main-bg: #808080;
   --text-color: #3a1212;
   --btn-bg: #c78544;
+  --hover-btn: #bd742c;
   --link: #67d9fe;
 }
 
@@ -65,6 +66,7 @@ button {
 .section {
   display: flex;
   flex-direction: row-reverse;
+  height: 100vh;
   gap: 10px;
 }
 .show {
@@ -73,8 +75,8 @@ button {
 }
 
 /* media for nav */
-@media(max-width:700px){
-  .menu_icon{
+@media (max-width: 800px) {
+  .menu_icon {
     display: block;
   }
 }

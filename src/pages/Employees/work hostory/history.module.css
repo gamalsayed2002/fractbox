@@ -1,0 +1,49 @@
+.section {
+}
+.section main {
+  width: 100%;
+  flex-direction: column;
+  gap: 50px;
+}
+.main .input_container {
+  margin-top: 30px;
+  width: 500px;
+  max-width: 90%;
+}
+.main .input_container input {
+  width: 400px;
+  max-width: 100%;
+  outline: none;
+  border: none;
+  height: 45px;
+  padding: 0 10px;
+  border-radius: 5px;
+  background: var(--btn-bg);
+  color: rgb(93, 96, 99);
+}
+main .content{
+    width: 100%;
+flex-direction: column;
+gap: 10px;
+}
+main .content .box{
+background: var(--btn-bg);
+width: 500px;
+max-width: 90%;
+padding: 10px 15px;
+border-radius: 5px;
+}
+main .content .box h3{
+padding: 15px 0;
+}
+main .content .box div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+main .content .box div > :first-child{
+  font-weight: 400;
+}
+main .content .box div > :last-child{
+   font-size: 30px;
+  }
