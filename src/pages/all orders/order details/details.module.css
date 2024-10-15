@@ -1,0 +1,30 @@
+.section {
+}
+.section .content {
+  width: 100%;
+}
+.section .content form {
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+}
+.section .content form .input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 380px;
+  max-width: 95%;
+}
+.section .content form .input_container label {
+}
+.section .content form .input_container input {
+  width: 100%;
+  background: var(--btn-bg);
+  border-radius: 5px;
+  height: 35px;
+  outline: none;
+  border: none;
+  padding: 0 10px;
+}
+.section .content form .input_container input::placeholder {
+}

@@ -13,6 +13,7 @@ import History from "./pages/Employees/work hostory/History";
 import Add from "./pages/Employees/addEmploye/Add";
 import AllOrders from "./pages/all orders/AllOrders";
 import Orders from "./pages/all orders/orders/Orders";
+import Details from "./pages/all orders/order details/Details";
 // nav
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
         <Route path="/add" element={<Add />} />
         <Route path="/all_orders" element={<AllOrders />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/order_details" element={<Orders />} />
+        <Route path="/order_details" element={<Details />} />
       </Routes>
     </NavProvider>
   );
