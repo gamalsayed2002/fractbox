@@ -13,7 +13,10 @@ export default function Add_company() {
 
   let Navigate = useNavigate();
   let [logo, setLogo] = useState(null);
+  let [logoImg, setLogoImg] = useState(null);
   let [contract, setContract] = useState(null);
+  let [contractImg, setContractImg] = useState(null);
+
   let [name, setName] = useState("");
   let [license, setLicense] = useState("");
   let [number, setNumber] = useState("");
@@ -26,6 +29,26 @@ export default function Add_company() {
     setLoader(false);
   }, []);
 
+  const handleContractUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setContractImg(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleLogoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLogoImg(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   let submit = (e) => {
     e.preventDefault();
     setLoader(true);
@@ -56,7 +79,7 @@ export default function Add_company() {
           showConfirmButton: false,
           timer: 1500,
         });
-        Navigate("/companies");
+        Navigate("/finance");
       })
       .catch((error) => {
         Swal.fire({
@@ -177,9 +200,9 @@ export default function Add_company() {
               >
                 <label htmlFor="img" className={`center`}>
                   <h3> Company logo</h3>
-                  {logo ? (
+                  {logoImg ? (
                     <img
-                      src={logo}
+                      src={logoImg}
                       alt="Uploaded"
                       style={{
                         width: "50px",
@@ -197,6 +220,7 @@ export default function Add_company() {
                   id="img"
                   onChange={(e) => {
                     setLogo(e.target.files[0]);
+                    handleLogoUpload(e);
                   }}
                 />
               </div>
@@ -205,9 +229,9 @@ export default function Add_company() {
               >
                 <label htmlFor="contract" className={`center`}>
                   <h3>Contract </h3>
-                  {contract ? (
+                  {contractImg ? (
                     <img
-                      src={contract}
+                      src={contractImg}
                       alt="Uploaded"
                       style={{
                         width: "50px",
@@ -226,6 +250,7 @@ export default function Add_company() {
                   id="contract"
                   onChange={(e) => {
                     setContract(e.target.files[0]);
+                    handleContractUpload(e);
                   }}
                 />
               </div>
