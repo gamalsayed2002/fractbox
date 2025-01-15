@@ -1,0 +1,78 @@
+.section {
+  width: 100%;
+  height: 100vh;
+}
+.section .all_content {
+  width: 100%;
+  height: 100%;
+}
+.section .all_content header {
+  display: flex;
+  gap: 15px;
+  margin: 30px;
+}
+.section .all_content header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 2px solid var(--btn-bg);
+}
+.section .all_content header .info {
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.section .all_content header .info h2 {
+}
+.section .all_content header .info h4 {
+  font-weight: 700;
+}
+.section .all_content .container {
+  gap: 20px;
+  flex-direction: column;
+}
+.section .all_content .container .input_container {
+  width: 600px;
+  max-width: 95%;
+}
+.section .all_content .container .input_container input {
+  width: 100%;
+  background: var(--btn-bg);
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 20px;
+  padding-right: 10px;
+  font-size: 16px;
+}
+
+.section .all_content .container .input_container input::placeholder {
+}
+.section .all_content .container .content {
+  width: 100%;
+  height: 65vh;
+}
+.section .all_content .container .content .boxes_container {
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+.section .all_content .container .content .boxes_container::-webkit-scrollbar {
+  width: 0;
+}
+.section .all_content .container .content .boxes_container .box {
+  line-height: 1.5;
+  color: var(--text-color);
+  background: var(--btn-bg);
+  width: 250px;
+  max-width: 95%;
+  border-radius: 5px;
+  padding: 15px;
+}
+.section .all_content .container .content .boxes_container .box h3 {
+}
+.section .all_content .container .content .boxes_container .box p {
+}

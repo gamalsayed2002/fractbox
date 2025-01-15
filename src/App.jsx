@@ -14,6 +14,14 @@ import Add from "./pages/Employees/addEmploye/Add";
 import AllOrders from "./pages/all orders/AllOrders";
 import Orders from "./pages/all orders/orders/Orders";
 import Details from "./pages/all orders/order details/Details";
+import Codes from "./pages/Postal codes/Codes";
+import AddPostal from "./pages/Postal codes/add postal code/AddPostal";
+import Companys from "./pages/finance/Companys";
+import Company_History from "./pages/finance/company history/Company_History";
+import Add_company from "./pages/finance/add_company/Add_company";
+import Regions from "./pages/regions/Regions";
+import DriverList from "./pages/regions/driverList/DriverList";
+import AddRegion from "./pages/regions/add region/AddRegion";
 // nav
 
 function App() {
@@ -31,6 +39,14 @@ function App() {
         <Route path="/all_orders" element={<AllOrders />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/order_details" element={<Details />} />
+        <Route path="/postal_codes" element={<Codes />} />
+        <Route path="/add_postal_code" element={<AddPostal />} />
+        <Route path="/finance" element={<Companys />} />
+        <Route path="/company_history/:id" element={<Company_History />} />
+        <Route path="/add_company" element={<Add_company />} />
+        <Route path="/regions" element={<Regions />} />
+        <Route path="/driver_list" element={<DriverList />} />
+        <Route path="/add_region" element={<AddRegion />} />
       </Routes>
     </NavProvider>
   );

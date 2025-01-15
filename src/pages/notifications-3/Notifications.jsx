@@ -12,7 +12,10 @@ export default function Notifications() {
         <Nav />
 
         <div className={`${styles.content} content center`}>
+
+
           <div className={`${styles.container} center`}>
+            
             <div className={`${styles.box}`}>
               <h4>yesterday,02:45pm</h4>
               <p>Ahmed Ali delivered 10 more packages than last week</p>

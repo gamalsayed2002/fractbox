@@ -18,7 +18,11 @@ export default function Orders() {
           <div className={`${styles.input_container} center`}>
             <input type="text"  placeholder="Enter order number or phone number" />
           </div>
+          
           <div className={`${styles.content_container} center`}>
+
+
+
             <Link to={`/order_details`} className={`${styles.box} center`}>
             <span><LuBox/></span>
             <h3>order number : 2001215</h3>

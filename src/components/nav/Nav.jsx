@@ -28,12 +28,16 @@ export default function Nav() {
             Tracking
           </Link>
 
-          <Link to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/finance`} className={`${styles.link} center`}>
             Finance
           </Link>
 
-          <Link to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/postal_codes`} className={`${styles.link} center`}>
             Postal codes
+          </Link>
+
+          <Link to={`/regions`} className={`${styles.link} center`}>
+            regions
           </Link>
         </ul>
       </nav>

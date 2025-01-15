@@ -1,0 +1,82 @@
+.section {
+  width: 100%;
+  height: 100vh;
+}
+.section .all_content {
+  width: 100%;
+  height: 100%;
+}
+.section .all_content h2 {
+  width: fit-content;
+  margin-right: auto;
+  padding: 30px 0 0 20px;
+  font-size: 30px;
+}
+.section .all_content .container {
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: 95%;
+}
+.section .all_content .container .input_container {
+  width: 600px;
+  max-width: 95%;
+  gap: 10px;
+}
+.section .all_content .container .input_container .icon_container {
+  width: 40px;
+  height: 38px;
+  font-size: 25px;
+  border-radius: 100%;
+  background: #d1d1d1;
+  color: var(--text-color);
+}
+.section .all_content .container .input_container input {
+  width: 100%;
+  background: var(--btn-bg);
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 20px;
+  font-size: 16px;
+}
+.section .all_content .container .input_container input::placeholder {
+}
+.section .all_content .container .content {
+  width: 100%;
+  height: 75vh;
+}
+.section .all_content .container .content .boxes_contaienr {
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-height: 100%;
+
+  overflow: scroll;
+}
+.section .all_content .container .content .boxes_contaienr::-webkit-scrollbar {
+  width: 0;
+}
+.section .all_content .container .content .boxes_contaienr .box {
+  justify-content: flex-start;
+  padding-left: 10px;
+  color: var(--text-color);
+  background: var(--btn-bg);
+  width: 300px;
+  max-width: 99%;
+  border-radius: 5px;
+  height: 100px;
+  gap: 20px;
+}
+.section .all_content .container .content .boxes_contaienr .box img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+.section .all_content .container .content .boxes_contaienr .box .info {
+  line-height: 1.5;
+}
+.section .all_content .container .content .boxes_contaienr .box .info h3 {
+}
+.section .all_content .container .content .boxes_contaienr .box .info p {
+}
