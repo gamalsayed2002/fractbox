@@ -2,15 +2,102 @@ import { GrMenu } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa";
 import Nav from "../../components/nav/Nav";
 import styles from "./employees.module.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavContext } from "../../context/NavContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "./imgs/BMS.jpeg";
+import Loader from "../../components/LOADER/Loader";
+import Swal from "sweetalert2";
 export default function Employees() {
   const { toggleNav } = useContext(NavContext);
+  let [loader, setLoader] = useState(true);
   let [currentActive, setCurrentActive] = useState("Driver");
-  let [mainData, setMainData] = useState([]);
+  let [data, setData] = useState([]);
+  let navigate = useNavigate();
+  const getData = () => {
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to access the data.",
+      });
+      navigate("/");
+      return;
+    }
+
+    fetch("https://fraktbox.com/public/api/workers", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((res) => {
+        setData(res.data);
+        setLoader(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+        setLoader(false);
+      });
+  };
+
+  //
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    if (value.length === 0) {
+      setLoader(true);
+      getData();
+    } else if (value.length > 3) {
+      fetch(`https://fraktbox.com/public/api/workers/search?name=${value}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok, status: ${response.status} some thing happend`
+            );
+          }
+          return response.json();
+        })
+        .then((res) => {
+          if (res.data.length < 1) {
+            Swal.fire(`there is no ${value} in data base`);
+          }
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire("Error fetching data", error.message, "error");
+        });
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  if (loader) {
+    return <Loader />;
+  }
   return (
     <>
       <section className={`${styles.section} section`}>
@@ -23,7 +110,11 @@ export default function Employees() {
           </Link>
           <div className={`${styles.header} center`}>
             <div className={`${styles.search_container} center`}>
-              <input type="text" placeholder="search" />
+              <input
+                type="text"
+                placeholder="search"
+                onChange={handleInputChange}
+              />
             </div>
             <div className={`${styles.filter} center`}>
               <button
@@ -54,156 +145,29 @@ export default function Employees() {
             </div>
           </div>
           <div className={`${styles.content} center`}>
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link to={`/history`} className={`center`}>
-                  Work history
-                </Link>
-                <Link to={`/inf`} className={`center`}>
-                  View more
-                </Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-            <div className={`${styles.box}`}>
-              <div className={`${styles.head}`}>
-                <img src={img} alt="img not found" />
-                <h2>Gamal sayed</h2>
-              </div>
-              <div className={`${styles.status}`}>active</div>
-              <div className={`${styles.detials}`}>
-                <Link className={`center`}>Work history</Link>
-                <Link className={`center`}>View more</Link>
-              </div>
-            </div>
-
-
-            
+            {data.lenth === 0 ? (
+              <h1>there is no data</h1>
+            ) : (
+              data.map((worker) => {
+                return (
+                  <div className={`${styles.box}`} key={worker.id}>
+                    <div className={`${styles.head}`}>
+                      <img src={img} alt="img not found" />
+                      <h2>{worker.name}</h2>
+                    </div>
+                    <div className={`${styles.status}`}>active</div>
+                    <div className={`${styles.detials}`}>
+                      <Link to={`/history`} className={`center`}>
+                        Work history
+                      </Link>
+                      <Link to={`/inf/${worker.id}`} className={`center`}>
+                        View more
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </section>

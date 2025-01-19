@@ -106,6 +106,7 @@ export default function AddPostal() {
             showConfirmButton: false,
             timer: 2000,
           });
+          navigate("/postal_codes")
         } else {
           Swal.fire({
             icon: "error",

@@ -1,18 +1,17 @@
-
 Users
 1- POST fraktbox.com/public/api/register
- "name": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "securepassword"
+"name": "John Doe",
+"email": "john.doe@example.com",
+"password": "securepassword"
 
 2- POST fraktbox.com/public/api/login
-  "email": "john.doe@example.com",
-  "password": "securepassword"
+"email": "john.doe@example.com",
+"password": "securepassword"
 
 3- POST fraktbox.com/public/api/changepassword/{id}
 "current_password": "currentpassword",
-  "new_password": "newsecurepassword",
-  "confirm_password": "newsecurepassword"
+"new_password": "newsecurepassword",
+"confirm_password": "newsecurepassword"
 
 Questions
 4- GET fraktbox.com/public/api/questions
@@ -23,28 +22,27 @@ Questions
 
 Workers - Apply for a job "Job Application"
 8- POST fraktbox.com/public/api/worker/add
-        'name',
-        'email',
-        'work_days',
-        'company_id',
-        'role_id',
-        'gender',
-        'MVA',
-        'identification',
-        'company_name',
-        'company_license',
-        'phone_number',
-        'phone_number2',
-        'car_type',
-        'car_number',
-        "region_id"
+'name',
+'email',
+'work_days',
+'company_id',
+'role_id',
+'gender',
+'MVA',
+'identification',
+'company_name',
+'company_license',
+'phone_number',
+'phone_number2',
+'car_type',
+'car_number',
+"region_id"
 
 Add Category
 9- POST fraktbox.com/public/api/category/add
-	'name'
+'name'
 View All Categories
 10- GET fraktbox.com/public/api/categories
-
 
 View All Employees
 11- GET fraktbox.com/public/api/workers
@@ -54,12 +52,11 @@ View Employee
 
 View All Regions
 13- GET fraktbox.com/public/api/regions
-   "code" , "name"
+"code" , "name"
 Add Region
 14- POST fraktbox.com/public/api/region/add
 Delete Region
 15- DELETE fraktbox.com/public/api/region/delete/{id}
-
 
 All Orders
 16- GET fraktbox.com/public/api/packages
@@ -77,18 +74,16 @@ All Companies Categroies
 "company_id","category_id","desc"
 All Companies
 21- GET fraktbox.com/public/api/companies
- "name","address","phone","email","license","photo","contract","weight","price"
+"name","address","phone","email","license","photo","contract","weight","price"
 Add Company
 22- POST fraktbox.com/public/api/company/add
 Edit Company
-23- PUT  fraktbox.com/public/api/company/update/{id}
-
-
+23- PUT fraktbox.com/public/api/company/update/{id}
 
 Postal Codes
 All Postal Codes
 24- GET fraktbox.com/public/api/postalcodes
-  "code" , "area"
+"code" , "area"
 Add Postal Code
 25- POST fraktbox.com/public/api/postalcode/add
 Delete Postal Code
@@ -100,7 +95,7 @@ Driver Info
 Driver Orders
 28- GET fraktbox.com/public/api/packages/worker/{id}
 Driver Order Details
-29-  GET fraktbox.com/public/api/package/{id}
+29- GET fraktbox.com/public/api/package/{id}
 
 Missing Tracking
 Missing Home
@@ -124,27 +119,30 @@ Send Message to that user
 Fire Worker
 36- POST https://fraktbox.com/public/api/workers/{id}/fire
 
-
-Total Employee Active Time
-37- GET https://fraktbox.com/public/api/users/{id}/active-time
-
 Total Employee Active Time by specific date
 38- GET https://fraktbox.com/public/api/users/{id}/active-time/{date}
 Example https://fraktbox.com/public/api/users/1/active-time/2024-12-12
 
-Total Employee Active Time between two dates
-39- GET https://fraktbox.com/public/api/users/{id}/active-time/week/{startDate}/{endDate}
-
+////////////////////////////////////////
 Edit Employee
 40- https://fraktbox.com/public/worker/update/{id}
+
+/****************\*****************/
+Total Employee Active Time
+37- GET https://fraktbox.com/public/api/users/{id}/active-time
+
+Total Employee Active Time between two dates
+39- GET https://fraktbox.com/public/api/users/{id}/active-time/week/{startDate}/{endDate}
 
 Get average rating for a worker
 41- GET https://fraktbox.com/public/workers/{workerId}/average-rating
 
+/****************\*****************/
+
 Rate a worker
 42-POST https://fraktbox.com/public/workers/{workerId}/rate
-  Example:
-  "rating": 5,"client_identifier": "guest_12345"
+Example:
+"rating": 5,"client_identifier": "guest_12345"
 
 Update Region
 43-PUT https://fraktbox.com/public/regions/{id}
@@ -154,3 +152,39 @@ Add Region to Driver or Update Driver Region
 
 GET Company Data
 45- GET https://fraktbox.com/public/company/{id}
+
+<!-- 16-1-2025 -->
+
+Search Employees
+46- GET https://fraktbox.com/public/api/workers/search
+Search by Name
+URL: GET https://fraktbox.com/public/api/workers/search?name=John
+
+Search by Email
+URL: GET https://fraktbox.com/public/api/workers/search?email=example@example.com
+
+Search by Company ID
+URL: GET https://fraktbox.com/public/api/workers/search?company_id=1
+
+Search by Status
+URL: GET https://fraktbox.com/public/api/workers/search?status=agreed
+
+General Search
+URL: GET https://fraktbox.com/public/api/workers/search?query=John
+
+<!-- Start and End Journey -->
+<!-- Start Journey -->
+
+47- POST https://fraktbox.com/public/api/workers/{id}/start-journey
+
+<!-- End Journey -->
+
+48- POST https://fraktbox.com/public/api/workers/{id}/end-journey
+
+<!-- Update Kilometers -->
+
+49- POST https://fraktbox.com/public/api/workers/{id}/update-journey-kilometers
+
+<!-- Calculate Total Kilometers for a worker -->
+
+50- GET https://fraktbox.com/public/api/workers/{id}/total-kilometers

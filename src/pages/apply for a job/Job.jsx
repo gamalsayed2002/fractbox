@@ -66,7 +66,7 @@ export default function Job() {
       formData.append("card", card); // Assuming this is a file or base64 image
     }
 
-    fetch("fraktbox.com/public/api/worker/add", {
+    fetch("https://fraktbox.com/public/api/worker/add", {
       method: "POST",
       body: formData,
     })

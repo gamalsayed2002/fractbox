@@ -162,7 +162,39 @@ export default function Regions() {
         });
       });
   };
+  const handleInputChange = (e) => {
+    const value = e.target.value;
 
+    if (value.length === 0) {
+      setLoader(true);
+      getData();
+    } else if (value.length > 3) {
+      fetch(`https:fraktbox.com/public/api/regions/search?query=${value}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok, status: ${response.status} some thing happend`
+            );
+          }
+          return response.json();
+        })
+        .then((res) => {
+          if (res.data.length < 1) {
+            Swal.fire(`there is no ${value} in data base`);
+          }
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire("Error fetching data", error.message, "error");
+        });
+    }
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -180,7 +212,7 @@ export default function Regions() {
 
       <div className={`${styles.container} center`}>
         <div className={`${styles.input_container} center`}>
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." onChange={handleInputChange} />
           <Link
             to={`/add_region`}
             className={`${styles.icon_container} center`}

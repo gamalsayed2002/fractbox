@@ -9,6 +9,7 @@
 .section .content .container {
   width: 100%;
 
+
   flex-direction: column;
   gap: 20px;
 }

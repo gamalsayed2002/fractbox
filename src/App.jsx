@@ -34,10 +34,10 @@ function App() {
         <Route path="/job" element={<Job />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/history" element={<History />} />
-        <Route path="/inf" element={<Inf />} />
+        <Route path="/inf/:id" element={<Inf />} />
         <Route path="/add" element={<Add />} />
         <Route path="/all_orders" element={<AllOrders />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/:key" element={<Orders />} />
         <Route path="/order_details" element={<Details />} />
         <Route path="/postal_codes" element={<Codes />} />
         <Route path="/add_postal_code" element={<AddPostal />} />

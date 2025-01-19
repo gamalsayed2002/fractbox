@@ -23,9 +23,10 @@ export default function Codes() {
         text: "Please log in to access the data.",
       });
       navigate("/");
+      return;
     }
 
-    fetch("fraktbox.com/public/api/postalcodes", {
+    fetch("http://fraktbox.com/public/api/postalcodes", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,15 +45,17 @@ export default function Codes() {
         setLoader(false);
       })
       .catch((error) => {
-        setLoader(false);
-        console.log(error);
+        console.error("Error:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Error",
           text: error.message,
         });
+        setLoader(false);
       });
   };
+
+
   useEffect(() => {
     getData();
   }, []);

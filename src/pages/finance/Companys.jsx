@@ -38,7 +38,6 @@ export default function Companys() {
     })
       .then((response) => {
         if (!response.ok) {
-        
           throw new Error(
             `Network response was not ok, status: ${response.status}`
           );
@@ -58,6 +57,41 @@ export default function Companys() {
         });
       });
   };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    if (value.length === 0) {
+      setLoader(true);
+      getData();
+    } else if (value.length > 3) {
+      fetch(`https:fraktbox.com/public/api/companies/search?query=${value}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok, status: ${response.status} some thing happend`
+            );
+          }
+          return response.json();
+        })
+        .then((res) => {
+          if (res.data.length < 1) {
+            Swal.fire(`there is no ${value} in data base`);
+          }
+          setData(res.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire("Error fetching data", error.message, "error");
+        });
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -76,7 +110,11 @@ export default function Companys() {
             <h2>companies</h2>
             <div className={`${styles.container} center`}>
               <div className={`${styles.input_container} center`}>
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  placeholder=""
+                  onChange={handleInputChange}
+                />
                 <Link
                   to={`/add_company`}
                   className={`${styles.icon_container} center`}
