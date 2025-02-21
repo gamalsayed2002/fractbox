@@ -14,6 +14,7 @@ export default function Job() {
 
   let [name, setName] = useState("");
   let [phone, setPhone] = useState("");
+  let [phone2, setPhone2] = useState("");
   let [email, setEmail] = useState("");
   let [roule, setRoule] = useState("");
   let [days, setDayes] = useState("");
@@ -23,6 +24,8 @@ export default function Job() {
   let [card, setCard] = useState(null);
   let [mva, setMva] = useState("");
   let [sex, setSex] = useState("");
+  let [license, setLicense] = useState("");
+  let [region, setRegion] = useState("");
 
   const handleMvaUpload = (event) => {
     const file = event.target.files[0];
@@ -52,19 +55,18 @@ export default function Job() {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("phone", phone);
+    formData.append("phone_number", phone);
+    formData.append("phone_number2", phone2);
     formData.append("email", email);
-    formData.append("roule", roule);
-    formData.append("days", days);
-    formData.append("car", car);
-    formData.append("carNumber", carNumber);
-    formData.append("company", company);
-    formData.append("mva", mva); // Base64 or file depending on your backend requirement
-    formData.append("sex", sex);
-
-    if (card) {
-      formData.append("card", card); // Assuming this is a file or base64 image
-    }
+    formData.append("role_id", roule);
+    formData.append("work_days", days);
+    formData.append("car_type", car);
+    formData.append("car_number", carNumber);
+    formData.append("company_name", company);
+    formData.append("MVA", mva); // Base64 or file depending on your backend requirement
+    formData.append("gender", sex);
+    formData.append("identification", card);
+    formData.append("region_id", region);
 
     fetch("https://fraktbox.com/public/api/worker/add", {
       method: "POST",
@@ -87,6 +89,7 @@ export default function Job() {
         navigate("/");
       })
       .catch((error) => {
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -126,7 +129,15 @@ export default function Job() {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
-
+                <div className={`${styles.input_container}`}>
+                  <label htmlFor="phone2">Phone number2</label>
+                  <input
+                    type="number"
+                    id="phone2"
+                    value={phone2}
+                    onChange={(e) => setPhone2(e.target.value)}
+                  />
+                </div>
                 <div className={`${styles.input_container}`}>
                   <label htmlFor="email">Email</label>
                   <input
@@ -150,6 +161,15 @@ export default function Job() {
                 </div>
 
                 <div className={`${styles.input_container}`}>
+                  <label htmlFor="regions">Regions </label>
+                  <input
+                    type="text"
+                    id="regions"
+                    value={region}
+                    onChange={(e) => setRegion(e.target.value)}
+                  />
+                </div>
+                <div className={`${styles.input_container}`}>
                   <label htmlFor="days">Working days</label>
                   <input
                     type="text"
@@ -158,7 +178,6 @@ export default function Job() {
                     onChange={(e) => setDayes(e.target.value)}
                   />
                 </div>
-
                 <div className={`${styles.input_container}`}>
                   <label htmlFor="car">Car type</label>
                   <input
@@ -194,8 +213,8 @@ export default function Job() {
                   <input
                     type="text"
                     id="companyNumber"
-                    value={mva}
-                    onChange={(e) => setMva(e.target.value)}
+                    value={license}
+                    onChange={(e) => setLicense(e.target.value)}
                   />
                 </div>
 
@@ -208,7 +227,7 @@ export default function Job() {
                       <img
                         src={card}
                         alt="Uploaded"
-                        style={{ maxWidth: "100px", overflow: "hidden" }}
+                        style={{ maxWidth: "100px" }}
                       />
                     ) : (
                       <RiFileUploadFill className={`${styles.icon}`} />

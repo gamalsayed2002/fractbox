@@ -92,7 +92,7 @@ export default function AllOrders() {
                 <LuBox className={`${styles.icon} `} />
                 <h3>total orders : {data.not_delivered_packages}</h3>
               </div>
-              <span style={{ background: "red" }}>Not delivered</span>
+              <span className="delete">Not delivered</span>
             </Link>
           </div>
         </div>

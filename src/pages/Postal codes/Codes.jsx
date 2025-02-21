@@ -13,6 +13,40 @@ export default function Codes() {
   let [data, setData] = useState([]);
   let navigate = useNavigate();
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    if (value.length === 0) {
+      getData();
+    } else if (value.length > 3) {
+      fetch(`https://fraktbox.com/public/api/postal-codes/search?q=${value}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Network response was not ok, status: ${response.status} some thing happend`
+            );
+          }
+          return response.json();
+        })
+        .then((res) => {
+          if (res.data.length < 1) {
+        setData("there is no data")
+          }
+          setData(res.data);
+          console.log(data)
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  };
+
+
   const getData = () => {
     const token = localStorage.getItem("token");
 
@@ -26,13 +60,14 @@ export default function Codes() {
       return;
     }
 
-    fetch("http://fraktbox.com/public/api/postalcodes", {
+    fetch("https://fraktbox.com/public/api/postalcodes", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
+        console.log(response)
         if (!response.ok) {
           throw new Error(
             `Network response was not ok, status: ${response.status}`
@@ -42,6 +77,7 @@ export default function Codes() {
       })
       .then((res) => {
         setData(res.data);
+        console.log(data);
         setLoader(false);
       })
       .catch((error) => {
@@ -54,7 +90,6 @@ export default function Codes() {
         setLoader(false);
       });
   };
-
 
   useEffect(() => {
     getData();
@@ -72,7 +107,11 @@ export default function Codes() {
             <h3>Postal codes</h3>
             <div className={`${styles.container} center`}>
               <div className={`${styles.input_container} center`}>
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  placeholder=""
+                  onChange={(e) => { handleInputChange(e) }}
+                />
                 <Link
                   to={`/add_postal_code`}
                   className={`${styles.icon_container} center`}

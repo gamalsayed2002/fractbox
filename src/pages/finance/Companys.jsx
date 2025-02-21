@@ -65,7 +65,7 @@ export default function Companys() {
       setLoader(true);
       getData();
     } else if (value.length > 3) {
-      fetch(`https:fraktbox.com/public/api/companies/search?query=${value}`, {
+      fetch(`https://fraktbox.com/public/api/companies/search?query=${value}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,8 +81,10 @@ export default function Companys() {
         })
         .then((res) => {
           if (res.data.length < 1) {
-            Swal.fire(`there is no ${value} in data base`);
+            setData("there is no data");
           }
+          console.log(res);
+
           setData(res.data);
         })
         .catch((error) => {

@@ -9,8 +9,15 @@ import Swal from "sweetalert2";
 import Loader from "../../../components/LOADER/Loader";
 export default function Details() {
   const { toggleNav } = useContext(NavContext);
-
   const { id } = useParams();
+  let [name, setName] = useState("");
+  let [address, setAddress] = useState("");
+  let [phone_number, setPhoneNumber] = useState("");
+  let [email, setEmail] = useState("");
+  let [code, setCode] = useState("");
+  let [elements, setElement] = useState("");
+  let [method, setMethod] = useState("");
+  let [photo, setPhoto] = useState("");
 
   let [loader, setLoader] = useState(true);
   let [data, setData] = useState([]);
@@ -28,8 +35,7 @@ export default function Details() {
       navigate("/");
       return;
     }
-
-    fetch(`http://fraktbox.com/public/api/package/${id}`, {
+    fetch(`https://fraktbox.com/public/api/package/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +50,14 @@ export default function Details() {
         return response.json();
       })
       .then((res) => {
-        setData(res.data);
+        setAddress(res.data.address);
+        setCode(res.data.code);
+        setElement(res.data.elements);
+        setEmail(res.data.email);
+        setMethod(res.data.method);
+        setName(res.data.name);
+        setPhoneNumber(res.data.phone_number);
+        setPhoto(res.data.photo);
         setLoader(false);
       })
       .catch((error) => {
@@ -57,12 +70,16 @@ export default function Details() {
         setLoader(false);
       });
   };
+
   useEffect(() => {
     getData();
   }, []);
   if (loader) {
     return <Loader />;
   }
+
+  let save = () => {};
+
   return (
     <>
       <section className={`${styles.section} section`}>
@@ -72,38 +89,98 @@ export default function Details() {
           <form className="center">
             <div className={`${styles.input_container}`}>
               <label htmlFor="name">Name</label>
-              <input type="text" value={`gamal sayed`} id="name" />
+              <input
+                type="text"
+                value={name}
+                id="name"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
             </div>
 
             <div className={`${styles.input_container}`}>
               <label htmlFor="address">Address</label>
               <input
                 type="text"
-                value={`223 california , new york`}
+                value={address}
                 id="address"
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
               />
             </div>
 
             <div className={`${styles.input_container}`}>
               <label htmlFor="phone">Phone Number</label>
-              <input type="text" value={`01129340477`} id="address" />
+              <input
+                type="text"
+                value={phone_number}
+                id="phone"
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                }}
+              />
             </div>
-
+            <div className={`${styles.input_container}`}>
+              <label htmlFor="phone">Method</label>
+              <input
+                type="text"
+                value={method}
+                id="phone"
+                onChange={(e) => {
+                  setMethod(e.target.value);
+                }}
+              />
+            </div>
             <div className={`${styles.input_container}`}>
               <label htmlFor="email">Email</label>
-              <input type="email" value={`gamal sayed`} id="email" />
+              <input
+                type="email"
+                value={email}
+                id="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </div>
 
             <div className={`${styles.input_container}`}>
               <label htmlFor="inside">what's inside</label>
-              <input type="text" value={`a half moon clucher`} id="inside" />
+              <input
+                type="text"
+                value={elements}
+                id="inside"
+                onChange={(e) => {
+                  setElement(e.target.value);
+                }}
+              />
             </div>
 
             <div className={`${styles.input_container}`}>
               <label htmlFor="code">Code</label>
-              <input type="text" value={`no.552`} id="code" />
+              <input
+                type="text"
+                value={code}
+                id="code"
+                onChange={(e) => {
+                  setCode(e.target.value);
+                }}
+              />
             </div>
           </form>
+          <div className={styles.btns}>
+            <button
+              onClick={() => {
+                navigate("/all_orders");
+              }}
+            >
+              cancel
+            </button>
+            <button className="delete" onClick={save}>
+              save
+            </button>
+          </div>
         </div>
       </section>
     </>

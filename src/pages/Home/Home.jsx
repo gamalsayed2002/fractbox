@@ -7,23 +7,66 @@ import { useContext, useEffect, useState } from "react";
 import { NavContext } from "../../context/NavContext";
 import Loader from "./../../components/LOADER/Loader";
 import Swal from "sweetalert2";
+import Employees from "./../Employees/Employees";
 
 export default function Home() {
   const { toggleNav } = useContext(NavContext);
   let [loader, setLoader] = useState(true);
   const navigate = useNavigate();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setLoader(false);
-    } else {
+  let [employees, setEmaployees] = useState("");
+  let [orders, setOrders] = useState("");
+  let [traking, setTraking] = useState("");
+  let [postalCodes, setPostalCodes] = useState("");
+  let [finance, setFinance] = useState("");
+
+  const getData = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "you must login first",
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to access the data.",
       });
       navigate("/");
+      return;
     }
+
+    fetch("https://fraktbox.com/public/api/dashboard/counts", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((res) => {
+        setOrders(res.packages_count.original.count);
+        setEmaployees(res.active_drivers_count);
+        setPostalCodes(res.postal_codes_count.original.count);
+        setFinance(res.total_journey_prices);
+
+        setLoader(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+        setLoader(false);
+      });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
   return (
     <>
@@ -38,7 +81,8 @@ export default function Home() {
             <div className={`${styles.container} center`}>
               <Link to={`/employees`} className={`${styles.box}`}>
                 <h4>Employees</h4>
-                <h3>5,568</h3>
+
+                <h3>{employees}</h3>
                 <div className={`${styles.more}`}>more</div>
               </Link>
 
@@ -50,19 +94,19 @@ export default function Home() {
 
               <Link to={`/all_orders`} className={`${styles.box}`}>
                 <h4>Orders</h4>
-                <h3>11,033</h3>
+                <h3>{orders}</h3>
                 <div className={`${styles.more}`}>more</div>
               </Link>
 
               <Link className={`${styles.box}`}>
                 <h4>Tracking</h4>
-                <h3>553</h3>
+                <h3>{traking}</h3>
                 <div className={`${styles.more}`}>more</div>
               </Link>
 
               <Link to={`/finance`} className={`${styles.box}`}>
                 <h4>Finance</h4>
-                <h3>110,699 NOK</h3>
+                <h3>{finance} NOK</h3>
                 <div className={`${styles.more}`}>more</div>
               </Link>
 

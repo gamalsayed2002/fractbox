@@ -16,6 +16,7 @@ export default function Inf() {
   // ////////////////////////////////////////////////
   let [name, setName] = useState("");
   let [phone, setPhone] = useState("");
+  let [phone2, setPhone2] = useState("");
   let [email, setEmail] = useState("");
   let [roule, setRoule] = useState("");
   let [days, setDayes] = useState("");
@@ -78,6 +79,7 @@ export default function Inf() {
         return response.json();
       })
       .then((res) => {
+        console.log(res.data);
         setName(res.data.name);
         setEmail(res.data.email);
         setDayes(res.data.work_days);
@@ -86,11 +88,10 @@ export default function Inf() {
         setCard(res.data.identification);
         setPhone(res.data.phone_number);
         setCar(res.data.car_type);
-        setRoule(res.data.role.name);
-        console.log(res.data.role.name);
+        setRoule(res.data.role_id);
         setCarNumber(res.data.car_number);
         setCompany(res.data.company_name);
-        setLicense(res.data.company.license);
+        setLicense(res.data.company_license);
         setLoader(false);
       })
       .catch((error) => {
@@ -157,6 +158,7 @@ export default function Inf() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("phone_number", phone);
+    formData.append("phone_number2", phone2);
     formData.append("email", email);
     formData.append("role", roule);
     formData.append("work_days", days);
@@ -239,7 +241,17 @@ export default function Inf() {
                     }}
                   />
                 </div>
-
+                <div className={`${styles.input_container}`}>
+                  <label htmlFor="phone">Phone number2</label>
+                  <input
+                    type="number"
+                    id="phone2"
+                    value={phone2}
+                    onChange={(e) => {
+                      setPhone2(e.target.value);
+                    }}
+                  />
+                </div>
                 <div className={`${styles.input_container}`}>
                   <label htmlFor="email">Email</label>
                   <input

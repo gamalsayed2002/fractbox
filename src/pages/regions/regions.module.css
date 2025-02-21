@@ -5,7 +5,6 @@
   padding-top: 50px;
   justify-content: flex-start;
   gap: 100px;
-
 }
 .section .container .input_container {
   width: 600px;
@@ -94,4 +93,9 @@
   .link:last-child:hover {
   background: transparent;
   color: var(--text-color);
+}
+@media (max-width: 1000px) {
+  .section .container .content_container .content {
+    justify-content: center;
+  }
 }

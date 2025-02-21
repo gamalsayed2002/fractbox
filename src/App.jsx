@@ -22,6 +22,7 @@ import Add_company from "./pages/finance/add_company/Add_company";
 import Regions from "./pages/regions/Regions";
 import DriverList from "./pages/regions/driverList/DriverList";
 import AddRegion from "./pages/regions/add region/AddRegion";
+import EditRegion from "./pages/regions/edit/EditRegion";
 // nav
 
 function App() {
@@ -32,21 +33,32 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/job" element={<Job />} />
+        /* ===================== employees ================== */
         <Route path="/employees" element={<Employees />} />
-        <Route path="/history" element={<History />} />
+        <Route path="/history/:id" element={<History />} />
         <Route path="/inf/:id" element={<Inf />} />
         <Route path="/add" element={<Add />} />
+        /* ===================== employees ================== */ /*
+        ===================== oreders ================== */
         <Route path="/all_orders" element={<AllOrders />} />
         <Route path="/orders/:key" element={<Orders />} />
-        <Route path="/order_details" element={<Details />} />
+        <Route path="/order_details/:id" element={<Details />} />
+        /* ===================== orders ================== */ /*
+        ===================== postalcodes ================== */
         <Route path="/postal_codes" element={<Codes />} />
         <Route path="/add_postal_code" element={<AddPostal />} />
+        /* ===================== postal codes ================== */
+        ===================== finance ================== */
         <Route path="/finance" element={<Companys />} />
         <Route path="/company_history/:id" element={<Company_History />} />
         <Route path="/add_company" element={<Add_company />} />
+        /* ===================== finance ================== */ /*
+        ===================== regions ================== */
         <Route path="/regions" element={<Regions />} />
-        <Route path="/driver_list" element={<DriverList />} />
+        <Route path="/edit_region/:id" element={<EditRegion />} />
+        <Route path="/driver_list/:id" element={<DriverList />} />
         <Route path="/add_region" element={<AddRegion />} />
+        /* ===================== finance ================== */
       </Routes>
     </NavProvider>
   );

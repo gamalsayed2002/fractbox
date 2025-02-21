@@ -112,7 +112,7 @@ export default function Orders() {
         return response.json();
       })
       .then((res) => {
-        setData(res);
+        setData(res.data);
         console.log(data);
         setLoader(false);
       })
@@ -132,7 +132,6 @@ export default function Orders() {
     const value = e.target.value;
 
     if (value.length === 0) {
-      setLoader(true);
       getData();
     } else if (value.length > 3) {
       fetch(`https:fraktbox.com/public/api/packages/search?query=${value}`, {
@@ -154,10 +153,10 @@ export default function Orders() {
             Swal.fire(`there is no ${value} in data base`);
           }
           setData(res.data);
+          console.log(data);
         })
         .catch((error) => {
           console.error("Error:", error);
-          Swal.fire("Error fetching data", error.message, "error");
         });
     }
   };
@@ -189,6 +188,7 @@ export default function Orders() {
                 <Link
                   to={`/order_details/${i.id}`}
                   className={`${styles.box} center`}
+                  key={i.id}
                 >
                   <span>
                     <LuBox />
@@ -197,345 +197,6 @@ export default function Orders() {
                 </Link>
               );
             })}
-
-            <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>
-            <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>  <Link
-              to={`/order_details/`}
-              className={`${styles.box} center`}
-            >
-              <span>
-                <LuBox />
-              </span>
-              <h3>order number : 2001215</h3>
-            </Link>
           </div>
         </div>
       </section>

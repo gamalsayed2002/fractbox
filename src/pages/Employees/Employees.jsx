@@ -43,6 +43,7 @@ export default function Employees() {
       })
       .then((res) => {
         setData(res.data);
+        console.log(data);
         setLoader(false);
       })
       .catch((error) => {
@@ -81,7 +82,7 @@ export default function Employees() {
         })
         .then((res) => {
           if (res.data.length < 1) {
-            Swal.fire(`there is no ${value} in data base`);
+            setData("there is no data");
           }
           setData(res.data);
         })
@@ -157,7 +158,7 @@ export default function Employees() {
                     </div>
                     <div className={`${styles.status}`}>active</div>
                     <div className={`${styles.detials}`}>
-                      <Link to={`/history`} className={`center`}>
+                      <Link to={`/history/${worker.id}`} className={`center`}>
                         Work history
                       </Link>
                       <Link to={`/inf/${worker.id}`} className={`center`}>

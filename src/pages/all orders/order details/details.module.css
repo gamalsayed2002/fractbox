@@ -2,6 +2,9 @@
 }
 .section .content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .section .content form {
   flex-wrap: wrap;
@@ -28,4 +31,22 @@
   padding: 0 10px;
 }
 .section .content form .input_container input::placeholder {
+}
+.btns{
+display: flex;
+justify-content: center;
+gap: 15px;
+flex-wrap: wrap;
+}
+.btns button{
+  background: var(--btn-bg);
+
+  outline: none;
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 20px;
+  max-width: 100%;
 }
