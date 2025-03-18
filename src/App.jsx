@@ -23,12 +23,16 @@ import Regions from "./pages/regions/Regions";
 import DriverList from "./pages/regions/driverList/DriverList";
 import AddRegion from "./pages/regions/add region/AddRegion";
 import EditRegion from "./pages/regions/edit/EditRegion";
+import Tracking from "./pages/tracking/Tracking";
+import AddDriver from "./pages/regions/driverList/add driver/AddDriver";
+import Stores from "./pages/stores/Stores";
 // nav
 
 function App() {
   return (
     <NavProvider>
       <Routes>
+        <Route path="/stores" element={<Stores />} />
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/notifications" element={<Notifications />} />
@@ -58,7 +62,9 @@ function App() {
         <Route path="/edit_region/:id" element={<EditRegion />} />
         <Route path="/driver_list/:id" element={<DriverList />} />
         <Route path="/add_region" element={<AddRegion />} />
+        <Route path="/Add_Driver" element={<AddDriver />} />
         /* ===================== finance ================== */
+        <Route path="/tracking" element={<Tracking />} />
       </Routes>
     </NavProvider>
   );

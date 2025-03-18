@@ -4,13 +4,19 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 15px;
+  padding: 10px 0;
 }
 .section .content form {
   flex-wrap: wrap;
   gap: 30px;
   width: 100%;
   padding: 0 10px;
+  overflow: scroll;
+}
+.section .content form::-webkit-scrollbar{
+  width: 0;
 }
 .section .content form .input_container {
   display: flex;
@@ -30,15 +36,24 @@
   border: none;
   padding: 0 10px;
 }
+.section .content form .input_container select {
+  width: 100%;
+  background: var(--btn-bg);
+  border-radius: 5px;
+  height: 35px;
+  outline: none;
+  border: none;
+  padding: 0 10px;
+}
 .section .content form .input_container input::placeholder {
 }
-.btns{
-display: flex;
-justify-content: center;
-gap: 15px;
-flex-wrap: wrap;
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
-.btns button{
+.btns button {
   background: var(--btn-bg);
 
   outline: none;

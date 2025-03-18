@@ -1,20 +1,21 @@
 import { GrMenu } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa";
-import Nav from "../../components/nav/Nav";
+
 import styles from "./employees.module.css";
 import { useContext, useEffect, useState } from "react";
-import { NavContext } from "../../context/NavContext";
+
 import { Link, useNavigate } from "react-router-dom";
-import img from "./imgs/BMS.jpeg";
-import Loader from "../../components/LOADER/Loader";
+
 import Swal from "sweetalert2";
-export default function Employees() {
+import { NavContext } from "../../../../context/NavContext";
+import Nav from "../../../../components/nav/Nav";
+import Loader from "../../../../components/LOADER/Loader";
+export default function AddDriver() {
   const { toggleNav } = useContext(NavContext);
   let [loader, setLoader] = useState(true);
   let [currentActive, setCurrentActive] = useState("Driver");
   let [data, setData] = useState([]);
   let navigate = useNavigate();
-  let [link, setLink] = useState("https://fraktbox.com/public/api/workers");
   const getData = () => {
     const token = localStorage.getItem("token");
 
@@ -28,7 +29,7 @@ export default function Employees() {
       return;
     }
 
-    fetch(link, {
+    fetch("https://fraktbox.com/public/api/workers/unassigned", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +45,7 @@ export default function Employees() {
       })
       .then((res) => {
         setData(res.data);
-        console.log(res);
+
         setLoader(false);
       })
       .catch((error) => {
@@ -96,7 +97,7 @@ export default function Employees() {
 
   useEffect(() => {
     getData();
-  }, [link]);
+  }, []);
   if (loader) {
     return <Loader />;
   }
@@ -120,35 +121,41 @@ export default function Employees() {
             </div>
             <div className={`${styles.filter} center`}>
               <button
-                onClick={(e) => {
-                  setLink(
-                    " https://fraktbox.com/public/api/workers/active-drivers"
-                  );
-                }}
+              // className={currentActive === "Driver" ? styles.acrive_btn : null}
+              // onClick={() => {
+              //   setCurrentActive("Driver");
+              //   //   let data = maindata.filter((i) => {
+              //   //     return i.category === "Driver";
+              //   //   });
+              //   //   setMainData(data);
+              // }}
               >
                 Driver
               </button>
 
               <button
-                onClick={() => {
-                  setLink(
-                    " https://fraktbox.com/public/api/workers/agreed-warehouse"
-                  );
-                }}
+              // className={currentActive === "Driver" ? styles.active_btn : null}
+              // onClick={() => {
+              //   setCurrentActive("Warehouse");
+              //   //   let data = maindata.filter((i) => {
+              //   //     return i.category === "Driver";
+              //   //   });
+              //   //   setMainData(data);
+              // }}
               >
                 Warehouse
               </button>
             </div>
           </div>
           <div className={`${styles.content} center`}>
-            {data.lenth === 0 ? (
+            {data !== 0 ? (
               <h1>there is no data</h1>
             ) : (
               data.map((worker) => {
                 return (
                   <div className={`${styles.box}`} key={worker.id}>
                     <div className={`${styles.head}`}>
-                      <img src={worker.identification} alt="img not found" />
+                     
                       <h2>{worker.name}</h2>
                     </div>
                     <div className={`${styles.status}`}>active</div>

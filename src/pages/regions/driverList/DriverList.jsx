@@ -8,16 +8,16 @@ import { NavContext } from "../../../context/NavContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loader from "../../../components/LOADER/Loader";
 
 export default function DriverList() {
   let navigate = useNavigate();
   let { id } = useParams();
-  let [loader, setLoader] = useState(false);
+  let [loader, setLoader] = useState(true);
   let [data, setData] = useState([]);
 
   const getData = () => {
     const token = localStorage.getItem("token");
-    console.log(token)
 
     if (!token) {
       Swal.fire({
@@ -30,7 +30,7 @@ export default function DriverList() {
     }
 
     setLoader(true);
-    fetch(` https://fraktbox.com/public/api/regions/${id}`, {
+    fetch(` https://fraktbox.com/public/api/regions/${id}/drivers`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -85,16 +85,13 @@ export default function DriverList() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://fraktbox.com/public/api/drivers/${driverId}/clear-region`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
+        fetch(`https://fraktbox.com/public/api/clear-region-for-role`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        })
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
@@ -103,6 +100,9 @@ export default function DriverList() {
           })
           .then((res) => {
             Swal.fire("Deleted!", "The driver has been deleted.", "success");
+            setTimeout(() => {
+              window.location.reload();
+            }, 2500);
           })
           .catch((error) => {
             console.error("Error:", error.message);
@@ -117,6 +117,9 @@ export default function DriverList() {
   };
 
   const { toggleNav } = useContext(NavContext);
+  if (loader) {
+    return <Loader />;
+  }
   return (
     <section className={`${styles.section} section`}>
       <GrMenu className="menu_icon center" onClick={toggleNav} />
@@ -126,7 +129,7 @@ export default function DriverList() {
         <div className={`${styles.input_container} center`}>
           <input type="text" placeholder="" />
           <Link
-            to={`/add_company`}
+            to={`/Add_Driver`}
             className={`${styles.icon_container} center`}
           >
             <FaPlus className={`${styles.icon} center`} />
@@ -151,7 +154,7 @@ export default function DriverList() {
                       Details
                     </Link>
                     <button
-                      className={`${styles.link} center`}
+                      className={`${styles.link} center delete`}
                       onClick={() => {
                         handelDelete(item.id);
                       }}

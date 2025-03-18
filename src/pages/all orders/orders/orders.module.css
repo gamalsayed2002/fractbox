@@ -84,6 +84,8 @@
 .section .content .input_container {
   width: 500px;
   max-width: 95%;
+  display: flex;
+  gap: 15px;
 }
 .section .content .input_container input {
   background-color: var(--btn-bg);
@@ -95,24 +97,35 @@
   outline: none;
   border: none;
 }
-.section .content .input_container input::placeholder {
+
+.section .content .input_container .icon_container {
+  width: 40px;
+  height: 39px;
+  font-size: 25px;
+  border-radius: 100%;
+  background: #d1d1d1;
+  color: var(--text-color);
 }
 .section .content .content_container {
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex: 1;
   width: 100%;
   padding: 0 20px;
   overflow: scroll;
+  height: 90%;
+}
+.section .content .content_container .container{
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  
 }
 .section .content .content_container::-webkit-scrollbar {
   width: 0;
 }
 .section .content .content_container .box {
   color: var(--text-color);
-  width: 250px;
+  width: 350px;
+  height: 150px;
   max-width: 95%;
   flex-direction: column;
   background: var(--btn-bg);
@@ -132,6 +145,9 @@
 }
 @media (max-width: 1177px) {
   .section .content .content_container {
+    justify-content: center;
+  }
+  .section .content .content_container .container{
     justify-content: center;
   }
 }

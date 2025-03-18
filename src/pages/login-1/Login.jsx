@@ -109,7 +109,7 @@ export default function Login() {
             <div className={`${styles.last_part} coulmn center`}>
               <div style={{ position: "relative", cursor: "pointer" }}>
                 <Link to="/job" className={`${styles.apply_for_jop}`}>
-                  apply for a jop
+                  apply for a job
                 </Link>
               </div>
               <button

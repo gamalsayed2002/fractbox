@@ -4,6 +4,7 @@
   width: 100%;
   flex-direction: column;
   gap: 50px;
+  padding-bottom: 25px;
 }
 .main .input_container {
   margin-top: 30px;
@@ -32,6 +33,7 @@ width: 500px;
 max-width: 90%;
 padding: 10px 15px;
 border-radius: 5px;
+color: black;
 }
 main .content .box h3{
 padding: 15px 0;

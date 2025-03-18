@@ -22,8 +22,10 @@ export default function Inf() {
   let [days, setDayes] = useState("");
   let [car, setCar] = useState("");
   let [carNumber, setCarNumber] = useState("");
-  let [company, setCompany] = useState("");
-  let [license, setLicense] = useState("");
+  let [photo, setPhoto] = useState("");
+
+  // let [company, setCompany] = useState("");
+  // let [license, setLicense] = useState("");
   let [card, setCard] = useState(null);
   let [cardImage, setCardImage] = useState(null);
   let [mvaImage, setMvaImage] = useState(null);
@@ -79,7 +81,6 @@ export default function Inf() {
         return response.json();
       })
       .then((res) => {
-        console.log(res.data);
         setName(res.data.name);
         setEmail(res.data.email);
         setDayes(res.data.work_days);
@@ -87,11 +88,12 @@ export default function Inf() {
         setMva(res.data.MVA);
         setCard(res.data.identification);
         setPhone(res.data.phone_number);
+        setPhone2(res.data.phone_number2);
         setCar(res.data.car_type);
         setRoule(res.data.role_id);
         setCarNumber(res.data.car_number);
-        setCompany(res.data.company_name);
-        setLicense(res.data.company_license);
+        // setCompany(res.data.company_name);
+        // setLicense(res.data.company_license);
         setLoader(false);
       })
       .catch((error) => {
@@ -119,7 +121,7 @@ export default function Inf() {
       if (result.isConfirmed) {
         setLoader(true);
         fetch(`https://fraktbox.com/public/api/workers/${id}/fire`, {
-          method: "Post",
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -164,10 +166,10 @@ export default function Inf() {
     formData.append("work_days", days);
     formData.append("car_type", car);
     formData.append("car_number", carNumber);
-    formData.append("company_name", company);
-    formData.append("license", license);
-    formData.append("identification", card);
-    formData.append("MVA", mva);
+    // formData.append("company_name", company);
+    // formData.append("license", license);
+    // formData.append("identification", card);
+    // formData.append("MVA", mva);
     formData.append("gender", sex);
 
     setLoader(true);
@@ -190,7 +192,7 @@ export default function Inf() {
       .then((res) => {
         Swal.fire("Worker has been updated!", "", "success");
         setLoader(false);
-        navigate("/employees");
+        naviaget("/employees");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -265,10 +267,10 @@ export default function Inf() {
                 </div>
 
                 <div className={`${styles.input_container}`}>
-                  <label htmlFor="roule">Roule</label>
+                  <label htmlFor="rule">Rule</label>
                   <select
-                    name="sex"
-                    id="sex"
+                    name="rule"
+                    id="rule"
                     value={roule}
                     onChange={(e) => setRoule(e.target.value)}
                   >
@@ -312,7 +314,7 @@ export default function Inf() {
                     }}
                   />
                 </div>
-
+                {/* 
                 <div className={`${styles.input_container}`}>
                   <label htmlFor="company">Company name</label>
                   <input
@@ -323,8 +325,8 @@ export default function Inf() {
                       setCompany(e.target.value);
                     }}
                   />
-                </div>
-                <div className={`${styles.input_container}`}>
+                </div> */}
+                {/* <div className={`${styles.input_container}`}>
                   <label htmlFor="companyNumber">Company license number</label>
                   <input
                     type="text"
@@ -334,11 +336,11 @@ export default function Inf() {
                       setLicense(e.target.value);
                     }}
                   />
-                </div>
+                </div> */}
                 <div
                   className={`${styles.input_container} ${styles.input_select}`}
                 >
-                  <h3>Sex</h3>
+                  <h3>Gender</h3>
                   <div className={`${styles.container} center`}>
                     <select
                       name="sex"

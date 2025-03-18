@@ -46,6 +46,17 @@
   border-radius: 5px;
   color: var(--text-color);
 }
+.section .content_container form .container .input_container select {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding-left: 20px;
+  font-size: 18px;
+  height: 40px;
+  background: var(--btn-bg);
+  border-radius: 5px;
+  color: var(--text-color);
+}
 .section
   .content_container
   form

@@ -98,7 +98,7 @@ export default function AddPostal() {
         return res.json();
       })
       .then((res) => {
-        if (res.msg === "success") {
+        if (res.msg === "Postal code added successfully") {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -106,7 +106,7 @@ export default function AddPostal() {
             showConfirmButton: false,
             timer: 2000,
           });
-          navigate("/postal_codes")
+          navigate("/postal_codes");
         } else {
           Swal.fire({
             icon: "error",

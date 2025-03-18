@@ -3,6 +3,7 @@ import Nav from "../../components/nav/Nav";
 
 // nav
 import { GrMenu } from "react-icons/gr";
+import { MdAutoAwesome } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import { NavContext } from "../../context/NavContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +18,7 @@ export default function Regions() {
 
   const getData = () => {
     const token = localStorage.getItem("token");
-    console.log(token)
+    console.log(token);
 
     if (!token) {
       Swal.fire({
@@ -84,7 +85,7 @@ export default function Regions() {
           if (res.data.length < 1) {
             Swal.fire(`there is no ${value} in data base`);
           }
-          console.log(res)
+          console.log(res);
           setData(res.data);
         })
         .catch((error) => {
@@ -95,6 +96,40 @@ export default function Regions() {
   useEffect(() => {
     getData();
   }, []);
+
+  let aiData = () => {
+    fetch("https://fraktbox.com/public/api/packages/assign", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: "Package assigned successfully",
+          text: "The package has been assigned to the worker.",
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error assigning package",
+          text: error.message,
+        });
+      });
+  };
 
   const { toggleNav } = useContext(NavContext);
 
@@ -122,6 +157,14 @@ export default function Regions() {
           >
             <FaPlus className={`${styles.icon} center`} />
           </Link>
+          <div className={`${styles.icon_container} center`}>
+            {" "}
+            <MdAutoAwesome
+              className={`${styles.icon} center`}
+              style={{ cursor: "pointer" }}
+              onClick={aiData}
+            />
+          </div>
         </div>
 
         <div className={`${styles.content_container} center`}>

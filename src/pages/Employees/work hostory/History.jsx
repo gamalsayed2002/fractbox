@@ -2,17 +2,17 @@ import { GrMenu } from "react-icons/gr";
 import styles from "./history.module.css";
 import Nav from "../../../components/nav/Nav";
 import { NavContext } from "../../../context/NavContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoAlarm } from "react-icons/io5";
 import { LuBox } from "react-icons/lu";
 import { FaRoad } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
+import { FaMoneyBillWave } from "react-icons/fa6";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 export default function History() {
   const { toggleNav } = useContext(NavContext);
   let { id } = useParams();
-
   let [loader, setLoader] = useState(true);
   let [data, setData] = useState([]);
   let [searchValue, setSarchValue] = useState("");
@@ -32,7 +32,7 @@ export default function History() {
       return;
     }
 
-    fetch(`https://fraktbox.com/public/api/package/${id}`, {
+    fetch(`https://fraktbox.com/public/api/workers/${id}/journeys`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,6 +47,7 @@ export default function History() {
         return response.json();
       })
       .then((res) => {
+        console.log(res);
         setLoader(false);
       })
       .catch((error) => {
@@ -114,7 +115,9 @@ export default function History() {
         setLoader(false);
       });
   };
-
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <section className={`${styles.section} section`}>
@@ -132,7 +135,7 @@ export default function History() {
             />
           </div>
           <div className={`${styles.content} center`}>
-            <div className={`${styles.box}`}>
+            <Link className={`${styles.box}`}>
               <h3>Working Hours</h3>
               <div>
                 <span>6 hours</span>{" "}
@@ -140,9 +143,9 @@ export default function History() {
                   <IoAlarm />
                 </span>
               </div>
-            </div>
+            </Link>
 
-            <div className={`${styles.box}`}>
+            <Link className={`${styles.box}`}>
               <h3>Number of Packeges </h3>
               <div>
                 <span>47 Packege</span>{" "}
@@ -150,9 +153,9 @@ export default function History() {
                   <LuBox />
                 </span>
               </div>
-            </div>
+            </Link>
 
-            <div className={`${styles.box}`}>
+            <Link className={`${styles.box}`}>
               <h3>Distance</h3>
               <div>
                 <span>335Km</span>{" "}
@@ -160,9 +163,9 @@ export default function History() {
                   <FaRoad />
                 </span>
               </div>
-            </div>
+            </Link>
 
-            <div className={`${styles.box}`}>
+            <Link className={`${styles.box}`}>
               <h3>Average Rating</h3>
               <div>
                 <span>3.5 stars</span>{" "}
@@ -170,7 +173,17 @@ export default function History() {
                   <FaStar />
                 </span>
               </div>
-            </div>
+            </Link>
+
+            <Link className={`${styles.box}`}>
+              <h3>finance </h3>
+              <div>
+                <span>1500 NOK</span>{" "}
+                <span>
+                  <FaMoneyBillWave />
+                </span>
+              </div>
+            </Link>
           </div>
         </main>
       </section>

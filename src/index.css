@@ -83,3 +83,9 @@ button {
     display: block;
   }
 }
+.swiper-pagination {
+  margin-top: 500px;
+}
+.swiper-pagination-bullet {
+  background: white !important;
+}

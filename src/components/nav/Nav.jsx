@@ -24,7 +24,7 @@ export default function Nav() {
             Orders
           </Link>
 
-          <Link to={`/home`} className={`${styles.link} center`}>
+          <Link to={`/tracking`} className={`${styles.link} center`}>
             Tracking
           </Link>
 
@@ -38,6 +38,10 @@ export default function Nav() {
 
           <Link to={`/regions`} className={`${styles.link} center`}>
             regions
+          </Link>
+          
+          <Link to={`/stores`} className={`${styles.link} center`}>
+            Stores
           </Link>
         </ul>
       </nav>

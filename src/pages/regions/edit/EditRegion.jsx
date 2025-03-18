@@ -12,6 +12,55 @@ export default function EditRegion() {
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+
+  const Delete = (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "are you shure?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "yes",
+      denyButtonText: `no`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        setLoader(true);
+        fetch(`https://fraktbox.com/public/api/region/delete/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(response);
+              throw new Error(
+                `Network response was not ok, status: ${response.status}`
+              );
+            }
+            return response.json();
+          })
+          .then((res) => {
+            Swal.fire("worker has been removed!", "", "success");
+            setLoader(false);
+            navigate("/regions");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: error.message,
+            });
+            setLoader(false);
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
+
   const handleSubmit = (e) => {
     const token = localStorage.getItem("token");
 
@@ -26,7 +75,7 @@ export default function EditRegion() {
     }
     e.preventDefault();
     setLoader(true);
-    fetch(`https://fraktbox.com/public/api/regions/${id}/drivers`, {
+    fetch(`https://fraktbox.com/public/api/regions/${id}/update`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,7 +90,6 @@ export default function EditRegion() {
         return response.json();
       })
       .then((data) => {
-        // Show success alert
         Swal.fire({
           title: "Success!",
           text: "Data submitted successfully!",
@@ -53,6 +101,7 @@ export default function EditRegion() {
         navigate("/regions");
       })
       .catch((error) => {
+        console.log(error);
         setLoader(false);
         Swal.fire({
           title: "Error!",
@@ -60,10 +109,10 @@ export default function EditRegion() {
           icon: "error",
         });
       });
-  }
+  };
   const getData = () => {
     const token = localStorage.getItem("token");
-  
+
     if (!token) {
       Swal.fire({
         icon: "warning",
@@ -73,9 +122,9 @@ export default function EditRegion() {
       navigate("/");
       return;
     }
-  
+
     setLoader(true);
-    fetch(`https://fraktbox.com/public/api/regions/${id}/drivers`, {
+    fetch(`https://fraktbox.com/public/api/regions/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -89,7 +138,6 @@ export default function EditRegion() {
         return response.json();
       })
       .then((res) => {
-        console.log(res);
         setCode(res.code); // Assuming res has a property 'code'
         setName(res.name); // Assuming res has a property 'name'
         setLoader(false);
@@ -107,6 +155,7 @@ export default function EditRegion() {
   useEffect(() => {
     getData();
   }, []);
+
   const { toggleNav } = useContext(NavContext);
   if (loader) {
     return <Loader />;
@@ -130,7 +179,7 @@ export default function EditRegion() {
         </div>
 
         <div className={`${styles.input_container} center`}>
-          <label htmlFor="Number">Reigon Number</label>
+          <label htmlFor="Number">Reigon Code</label>
           <input
             type="number"
             id="Number"
@@ -143,7 +192,10 @@ export default function EditRegion() {
 
         <div style={{ display: "flex", gap: "20px" }}>
           <button type="sumbit"> save</button>
-          <button className="delete"> delete</button>
+          <button className="delete" onClick={Delete}>
+            {" "}
+            delete
+          </button>
         </div>
       </form>
     </section>

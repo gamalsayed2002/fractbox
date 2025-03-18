@@ -149,7 +149,7 @@ export default function Job() {
                 </div>
 
                 <div className={`${styles.input_container}`}>
-                  <label htmlFor="roule">Role</label>
+                  <label htmlFor="roule">Rule</label>
                   <select
                     id="roule"
                     value={roule}

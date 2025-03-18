@@ -6,6 +6,7 @@ import Nav from "../../../components/nav/Nav";
 import { LuBox } from "react-icons/lu";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { FaPlus } from "react-icons/fa";
 import Loader from "../../../components/LOADER/Loader";
 
 export default function Orders() {
@@ -112,6 +113,7 @@ export default function Orders() {
         return response.json();
       })
       .then((res) => {
+        console.log(res.data);
         setData(res.data);
         console.log(data);
         setLoader(false);
@@ -132,6 +134,7 @@ export default function Orders() {
     const value = e.target.value;
 
     if (value.length === 0) {
+      console.log(localStorage.getItem("token"));
       getData();
     } else if (value.length > 3) {
       fetch(`https:fraktbox.com/public/api/packages/search?query=${value}`, {
@@ -157,6 +160,7 @@ export default function Orders() {
         })
         .catch((error) => {
           console.error("Error:", error);
+          Swal.fire(`there is no ${value} in database`);
         });
     }
   };
@@ -180,23 +184,32 @@ export default function Orders() {
               placeholder="Enter order number or phone number"
               onChange={handleInputChange}
             />
+            <Link
+              to={`/order_details/0`}
+              className={`${styles.icon_container} center`}
+            >
+              <FaPlus className={`${styles.icon} center`} />
+            </Link>
           </div>
 
-          <div className={`${styles.content_container} center`}>
-            {data.map((i) => {
-              return (
-                <Link
-                  to={`/order_details/${i.id}`}
-                  className={`${styles.box} center`}
-                  key={i.id}
-                >
-                  <span>
-                    <LuBox />
-                  </span>
-                  <h3>order number : 2001215</h3>
-                </Link>
-              );
-            })}
+          <div className={`${styles.content_container}`}>
+            <div className={styles.container}>
+              {data.map((i) => {
+                return (
+                  <Link
+                    to={`/order_details/${i.id}`}
+                    className={`${styles.box} center`}
+                    key={i.id}
+                  >
+                    <span>
+                      <LuBox />
+                    </span>
+                    <h3>order number : {i.code}</h3>
+                    <p>Phone Number :{i.phone_number}</p>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

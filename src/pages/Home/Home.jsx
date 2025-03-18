@@ -21,6 +21,8 @@ export default function Home() {
 
   const getData = () => {
     const token = localStorage.getItem("token");
+    console.log(token)
+
 
     if (!token) {
       Swal.fire({
@@ -48,10 +50,10 @@ export default function Home() {
       })
       .then((res) => {
         setOrders(res.packages_count.original.count);
-        setEmaployees(res.active_drivers_count);
+        setEmaployees(res.workers_count.original.count);
         setPostalCodes(res.postal_codes_count.original.count);
         setFinance(res.total_journey_prices);
-
+        setPostalCodes(res.postal_codes_count.original.postal_codes_count);
         setLoader(false);
       })
       .catch((error) => {
@@ -112,7 +114,7 @@ export default function Home() {
 
               <Link to={`/postal_codes`} className={`${styles.box}`}>
                 <h4>Postal codes</h4>
-                <h3>10,000</h3>
+                <h3>{postalCodes}</h3>
                 <div className={`${styles.more}`}>more</div>
               </Link>
             </div>

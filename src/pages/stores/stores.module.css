@@ -1,0 +1,82 @@
+.section {
+  position: relative;
+}
+.section .container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px 0;
+  gap: 15px;
+}
+.section .container form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.section .container .input_container {
+  background: var(--btn-bg);
+  width: 300px;
+  max-width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
+}
+.section .container .input_container label {
+  position: relative;
+}
+.section .container .input_container label img{
+  max-width: 100% !important;
+}
+.section .container .input_container .icon {
+  font-size: 50px;
+  cursor: pointer;
+}
+.section .container .imgs_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 15px;
+  height: 70%;
+  overflow: scroll;
+  padding: 0 15px;
+}
+.section .container .imgs_container::-webkit-scrollbar {
+  width: 0;
+}
+.imgs_container .img {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  background: #d3d3d3;
+  border-radius: 15px;
+  padding: 15px;
+  flex-wrap: wrap;
+}
+.imgs_container .img .icon {
+  color: var(--btn-bg);
+  transition: 0.5s;
+  font-size: 40px;
+}
+.imgs_container .img .icon:hover {
+  color: brown;
+  scale: 1.1;
+  cursor: pointer;
+}
+.imgs_container img {
+  width: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  max-width: 95%;
+}
