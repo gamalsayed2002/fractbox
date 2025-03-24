@@ -67,7 +67,7 @@ export default function Regions() {
     if (value.length === 0) {
       getData();
     } else if (value.length > 3) {
-      fetch(`https:fraktbox.com/public/api/regions/search?query=${value}`, {
+      fetch(`https://fraktbox.com/public/api/region/search?query=${value}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

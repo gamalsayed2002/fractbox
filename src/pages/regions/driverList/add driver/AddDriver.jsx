@@ -1,4 +1,3 @@
-import { GrMenu } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa";
 
 import styles from "./employees.module.css";
@@ -7,16 +6,14 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
-import { NavContext } from "../../../../context/NavContext";
-import Nav from "../../../../components/nav/Nav";
 import Loader from "../../../../components/LOADER/Loader";
-export default function AddDriver() {
-  const { toggleNav } = useContext(NavContext);
+export default function AddDriver({ id }) {
+  console.log(id)
   let [loader, setLoader] = useState(true);
-  let [currentActive, setCurrentActive] = useState("Driver");
   let [data, setData] = useState([]);
   let navigate = useNavigate();
   const getData = () => {
+    setLoader(true);
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -44,8 +41,8 @@ export default function AddDriver() {
         return response.json();
       })
       .then((res) => {
-        setData(res.data);
-
+        setData(res.workers);
+       
         setLoader(false);
       })
       .catch((error) => {
@@ -60,6 +57,52 @@ export default function AddDriver() {
   };
 
   //
+
+  const updateRegion = (workerId) => {
+    const token = localStorage.getItem("token");
+    console.log(workerId);
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to perform this action.",
+      });
+      return;
+    }
+
+    fetch(`https://fraktbox.com/public/api/workers/${workerId}/update-region`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ region_id: id }), // Replace with the correct payload
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Worker successfully added to the region!",
+        });
+        console.log("Response:", res);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      });
+  };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -103,77 +146,47 @@ export default function AddDriver() {
   }
   return (
     <>
-      <section className={`${styles.section} section`}>
-        <GrMenu className="menu_icon center" onClick={toggleNav} />
-        <Nav />
-
-        <div className={`${styles.container} center`}>
-          <Link to={`/add`} className={`${styles.plus_icon} center`}>
-            <FaPlus className={`${styles.icon} center`} />
-          </Link>
-          <div className={`${styles.header} center`}>
-            <div className={`${styles.search_container} center`}>
-              <input
-                type="text"
-                placeholder="search"
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className={`${styles.filter} center`}>
-              <button
-              // className={currentActive === "Driver" ? styles.acrive_btn : null}
-              // onClick={() => {
-              //   setCurrentActive("Driver");
-              //   //   let data = maindata.filter((i) => {
-              //   //     return i.category === "Driver";
-              //   //   });
-              //   //   setMainData(data);
-              // }}
-              >
-                Driver
-              </button>
-
-              <button
-              // className={currentActive === "Driver" ? styles.active_btn : null}
-              // onClick={() => {
-              //   setCurrentActive("Warehouse");
-              //   //   let data = maindata.filter((i) => {
-              //   //     return i.category === "Driver";
-              //   //   });
-              //   //   setMainData(data);
-              // }}
-              >
-                Warehouse
-              </button>
-            </div>
-          </div>
-          <div className={`${styles.content} center`}>
-            {data !== 0 ? (
-              <h1>there is no data</h1>
-            ) : (
-              data.map((worker) => {
-                return (
-                  <div className={`${styles.box}`} key={worker.id}>
-                    <div className={`${styles.head}`}>
-                     
-                      <h2>{worker.name}</h2>
-                    </div>
-                    <div className={`${styles.status}`}>active</div>
-                    <div className={`${styles.detials}`}>
-                      <Link to={`/history/${worker.id}`} className={`center`}>
-                        Work history
-                      </Link>
-                      <Link to={`/inf/${worker.id}`} className={`center`}>
-                        View more
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })
-            )}
+      <div className={`${styles.container} center`}>
+        <div className={`${styles.header} center`}>
+          <div className={`${styles.search_container} center`}>
+            <input
+              type="text"
+              placeholder="search"
+              onChange={handleInputChange}
+            />
           </div>
         </div>
-      </section>
+        <div className={`${styles.content} center`}>
+          {data.length === 0 ? (
+            <h1>there is no data</h1>
+          ) : (
+            data.map((worker) => {
+              return (
+                <div className={`${styles.box}`} key={worker.id}>
+                  <div className={`${styles.head}`}>
+                    <h2>{worker.name}</h2>
+                  </div>
+                  <div className={`${styles.status}`}>active</div>
+                  <div className={`${styles.detials}`}>
+                    <Link to={`/history/${worker.id}`} className={`center`}>
+                      Work history
+                    </Link>
+                    <button
+                      className={`center delete`}
+                      style={{ borderRadius: "10px", padding: "0 5px" }}
+                      onClick={() => {
+                        updateRegion(worker.id);
+                      }}
+                    >
+                      Add to region
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
     </>
   );
 }

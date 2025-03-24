@@ -32,7 +32,7 @@ export default function History() {
       return;
     }
 
-    fetch(`https://fraktbox.com/public/api/workers/${id}/journeys`, {
+    fetch(`https://fraktbox.com/public/api/workers/${id}/metrics`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export default function History() {
         return response.json();
       })
       .then((res) => {
-        console.log(res);
+        setData(res);
         setLoader(false);
       })
       .catch((error) => {
@@ -85,7 +85,7 @@ export default function History() {
 
     setLoader(true);
     fetch(
-      `https://fraktbox.com/public/api/packages/search?query=${searchValue}`,
+      `https://fraktbox.com/public/api/workers/${id}/journeys/${searchValue}`,
       {
         method: "GET",
         headers: {
@@ -101,8 +101,7 @@ export default function History() {
         return response.json();
       })
       .then((res) => {
-        console.log(res);
-        setData(res); // Assuming res is the data you want to set
+        setData(res);
         setLoader(false);
       })
       .catch((error) => {
@@ -115,6 +114,54 @@ export default function History() {
         setLoader(false);
       });
   };
+
+  const payment = (workerId) => {
+    const token = localStorage.getItem("token");
+    console.log(workerId);
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to perform this action.",
+      });
+      return;
+    }
+
+    fetch(`https://fraktbox.com/public/api/workers/${id}/reset-total-prices`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok, status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Worker successfully added to the region!",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      });
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -130,6 +177,7 @@ export default function History() {
               value={searchValue}
               onChange={(e) => {
                 setSarchValue(e.target.value);
+                console.log(e.target.value);
                 handleSearch();
               }}
             />
@@ -138,7 +186,7 @@ export default function History() {
             <Link className={`${styles.box}`}>
               <h3>Working Hours</h3>
               <div>
-                <span>6 hours</span>{" "}
+                <span>{data.total_working_hours} hours</span>{" "}
                 <span>
                   <IoAlarm />
                 </span>
@@ -148,7 +196,7 @@ export default function History() {
             <Link className={`${styles.box}`}>
               <h3>Number of Packeges </h3>
               <div>
-                <span>47 Packege</span>{" "}
+                <span>{data.total_packages} Packege</span>{" "}
                 <span>
                   <LuBox />
                 </span>
@@ -158,7 +206,7 @@ export default function History() {
             <Link className={`${styles.box}`}>
               <h3>Distance</h3>
               <div>
-                <span>335Km</span>{" "}
+                <span>{data.total_kilometers}</span>{" "}
                 <span>
                   <FaRoad />
                 </span>
@@ -168,7 +216,7 @@ export default function History() {
             <Link className={`${styles.box}`}>
               <h3>Average Rating</h3>
               <div>
-                <span>3.5 stars</span>{" "}
+                <span>{data.average_rating} stars</span>{" "}
                 <span>
                   <FaStar />
                 </span>
@@ -178,12 +226,20 @@ export default function History() {
             <Link className={`${styles.box}`}>
               <h3>finance </h3>
               <div>
-                <span>1500 NOK</span>{" "}
+                <span>{data.total_journey_prices} NOK</span>{" "}
                 <span>
                   <FaMoneyBillWave />
                 </span>
               </div>
             </Link>
+
+            <button
+              className={`${styles.box} delete`}
+              style={{ color: "white" }}
+              onClick={payment}
+            >
+              Payment made
+            </button>
           </div>
         </main>
       </section>

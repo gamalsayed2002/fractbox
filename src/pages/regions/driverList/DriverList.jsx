@@ -9,12 +9,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loader from "../../../components/LOADER/Loader";
+import AddDriver from "./add driver/AddDriver";
 
 export default function DriverList() {
   let navigate = useNavigate();
   let { id } = useParams();
   let [loader, setLoader] = useState(true);
   let [data, setData] = useState([]);
+  let [select, setSelect] = useState(false);
 
   const getData = () => {
     const token = localStorage.getItem("token");
@@ -124,50 +126,55 @@ export default function DriverList() {
     <section className={`${styles.section} section`}>
       <GrMenu className="menu_icon center" onClick={toggleNav} />
       <Nav />
+      {select ? (
+        <AddDriver id={id} />
+      ) : (
+        <div className={`${styles.container} center`}>
+          <div className={`${styles.input_container} center`}>
+            <input type="text" placeholder="" />
+            <button
+              onClick={() => {
+                setSelect(true);
+              }}
+              className={`${styles.icon_container} center`}
+            >
+              <FaPlus className={`${styles.icon} center`} />
+            </button>
+          </div>
 
-      <div className={`${styles.container} center`}>
-        <div className={`${styles.input_container} center`}>
-          <input type="text" placeholder="" />
-          <Link
-            to={`/Add_Driver`}
-            className={`${styles.icon_container} center`}
-          >
-            <FaPlus className={`${styles.icon} center`} />
-          </Link>
-        </div>
+          <div className={`${styles.content_container} center`}>
+            <div className={`${styles.content} center`}>
+              {data.map((item) => {
+                return (
+                  <div className={`${styles.box} center`} key={item.id}>
+                    <div className={`${styles.info} center`}>
+                      <span>Driver Name :{item.name}</span>
 
-        <div className={`${styles.content_container} center`}>
-          <div className={`${styles.content} center`}>
-            {data.map((item) => {
-              return (
-                <div className={`${styles.box} center`} key={item.id}>
-                  <div className={`${styles.info} center`}>
-                    <span>Driver Name :{item.name}</span>
-
-                    <span>total packeges : {item.total_packages}</span>
+                      <span>total packeges : {item.total_packages}</span>
+                    </div>
+                    <div className={`${styles.links} between`}>
+                      <Link
+                        to={`/history/${item.id}`}
+                        className={`${styles.link} center`}
+                      >
+                        Details
+                      </Link>
+                      <button
+                        className={`${styles.link} center delete`}
+                        onClick={() => {
+                          handelDelete(item.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                  <div className={`${styles.links} between`}>
-                    <Link
-                      to={`/history/${item.id}`}
-                      className={`${styles.link} center`}
-                    >
-                      Details
-                    </Link>
-                    <button
-                      className={`${styles.link} center delete`}
-                      onClick={() => {
-                        handelDelete(item.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

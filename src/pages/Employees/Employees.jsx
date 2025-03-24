@@ -44,7 +44,7 @@ export default function Employees() {
       })
       .then((res) => {
         setData(res.data);
-        console.log(res);
+
         setLoader(false);
       })
       .catch((error) => {
@@ -148,7 +148,7 @@ export default function Employees() {
                 return (
                   <div className={`${styles.box}`} key={worker.id}>
                     <div className={`${styles.head}`}>
-                      <img src={worker.identification} alt="img not found" />
+                      <img src={worker.image} alt="img not found" />
                       <h2>{worker.name}</h2>
                     </div>
                     <div className={`${styles.status}`}>active</div>
